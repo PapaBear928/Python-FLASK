@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+{% from "macros.html" import show_flash_message %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hotel DDT</title>
+</head>
+    <body>
+        <form id="notification_form" method="POST" action="">
+            {{show_flash_message}}
+         <h1>
+
+             {% block header_body %}
+             HOTEL DDT PRZEDSTAWIA
+             {%endblock}
+
+         </h1>
+            {% block page_body %} {%endblock}
+        </form>
+    </body>
+</html>
+
+
+
+
+
+
+
+
+

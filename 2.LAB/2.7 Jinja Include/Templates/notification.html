@@ -1,0 +1,31 @@
+{% extends main.html %}
+
+{% block header_body %} {%endblock}
+{% block page_body %}
+    <form id="notification_form" method="POST" action="">
+        {{show_flash_message}}
+        <label for="room_number">Room number</label>
+        <input type="text" name="room_number" id="room_number"><br>
+        <label for="guest_name">Guest Name</label>
+        <input type="text" name="guest_name" id="guest_name"><br>
+        <label for="disfunction">Disfunction</label>
+        <textarea rows="4" cols="50" name="disfunction"></textarea><br>
+        <input type="submit" value="Send">
+        <label for="disfunction">Disfunction</label>
+        <select id="disfunction" name="disfunction"></select>
+        <label for="Priority">Priority</label>
+        <select id="Priority" name="Priority">
+            {% for priority in list_of_priorities %}
+                <option value="{{ priority.code }}" {{'selected' if priority.selected}}> {{priority.description }}</option>
+            {% endfor %}
+        </select><br>
+        <input type="sumbit" value='Send'>
+    </form>
+{%endblock}
+
+
+
+
+
+
+

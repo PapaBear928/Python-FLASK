@@ -1,0 +1,48 @@
+from flask import Flask, url_for, request, redirect, render_template
+import os
+
+app = Flask(__name__)
+
+class PriorityType:
+    def __init__(self, code, description, selected):
+        self.code = code
+        self.description = description
+        self.selected = selected
+
+class NotificationPriorities:
+    def __init__(self):
+        self.list_of_priorities = []
+    
+    def load_priorities(self):
+        self.list_of_priorities.append(PriorityType('high','HIGH PRIORITY', False))
+        self.list_of_priorities.append(PriorityType('medium','MEDIUM', False))
+        self.list_of_priorities.append(PriorityType('normal', 'NOT URGENT', True))
+        self.list_of_priorities.append(PriorityType('low', 'REMARK', False))
+
+    def get_priority_by_code(self, code):
+        for p in self.list_of_priorities:
+            if p.code == code:
+                return p
+        return PriorityType('normal', 'NOT URGENT', True)
+
+@app.route('/notification', methods=['GET', 'POST'])
+def notification():
+
+    notification_priorities = NotificationPriorities()
+    notification_priorities.load_priorities()
+
+    if request.method == 'GET':
+        return render_template('notification.html', 
+                            list_of_priorities=notification_priorities.list_of_priorities)
+    else:
+        room_number = request.form['room_number'] if 'room_number' in request.form else ''
+        guest_name = request.form['guest_name'] if 'guest_name' in request.form else ''
+        notification_text =  request.form['notification_text'] if 'notification_text' in request.form else ''
+        priority = request.form['priority'] if 'priority' in request.form else 'normal'
+
+        priority_type = notification_priorities.get_priority_by_code(priority)
+        print('found', priority_type.code)
+
+        return render_template('notification_content.html',
+                room_number=room_number, guest_name=guest_name, 
+                notification_text=notification_text, priority_type=priority_type)

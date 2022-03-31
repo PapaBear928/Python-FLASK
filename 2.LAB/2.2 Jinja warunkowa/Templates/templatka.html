@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+
+<html>
+    <html>
+    <head>
+        <title>Hotel DDT</title>
+        <meta charset="utf-8">
+        <meta name='viewport' content="width=device=width, initial-scale=1.0">
+    </head>
+    <body>
+        <h1> Dear {{guest_name}}, Your disfunction at room: {{ room_number }} was confirmed</h1>
+        <h1>Text of your inform here below:
+            {{ disfunction}}
+
+        </h1>
+        
+        {% if Priority == 'high' %}
+        <h1>Criticial notification content</h1>
+        {% elif Priority == 'medium' %}
+        <h1>Important notification content</h1>
+        {% else  %}    
+        <h1>Notification content</h1>
+        {% endif %}
+        
+    </body>
+
+</html>
